@@ -6,7 +6,7 @@ def main():
     filename = "54724117.program2.exe"
     
     old_pw = input('Enter old password: ')
-    h = get_hash(old_pw)
+    h = get_sha1_hash(old_pw)
 
     # Confirm the entered password matches the old password
     f = open(filename, 'rb+')
@@ -26,14 +26,14 @@ def main():
             print("Passwords do not match!")
         else:
             # Set the new password
-            new_hash = get_hash(new_pw)
+            new_hash = get_sha1_hash(new_pw)
             f = open(filename, 'rb+')
             f.seek(pw_offset)
             f.write(new_hash)
             f.close()
             print ("Password Changed!")
 
-def get_hash(str):
+def get_sha1_hash(str):
     sh = hashlib.sha1()
     sh.update(str.encode('utf-8'))
     return sh.digest()
